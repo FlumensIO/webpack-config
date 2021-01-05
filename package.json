@@ -1,0 +1,21 @@
+{
+  "name": "@flumens/webpack-config",
+  "version": "0.1.0",
+  "description": "Webpack config",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.7.3",
+    "html-webpack-plugin": "4.5.0",
+    "mini-css-extract-plugin": "0.11.3",
+    "webpack-shell-plugin-next": "1.2.0"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "webpack": ">= 4.44"
+  },
+  "author": "Flumens",
+  "license": "MIT"
+}

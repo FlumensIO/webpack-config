@@ -1,0 +1,1 @@
+Config that is shared between various projects.
