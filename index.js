@@ -5,6 +5,7 @@ const autoprefixer = require("autoprefixer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const checkEnv = require("@flumens/has-env");
 
 const ROOT_DIR = process.env.INIT_CWD;
@@ -138,6 +139,11 @@ const config = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new UnusedWebpackPlugin({
+      directories: [path.join(ROOT_DIR, "src")],
+      exclude: ["*.spec.js", "dummy*", "cache*", "make*", "helper*"],
+      root: ROOT_DIR,
+    }),
   ],
   stats: {
     children: false,
