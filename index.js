@@ -5,12 +5,16 @@ const autoprefixer = require("autoprefixer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const checkEnv = require("@flumens/has-env");
 
 const ROOT_DIR = process.env.INIT_CWD;
-const capacitorConfig = require(`${ROOT_DIR}/capacitor.config.json`); // eslint-disable-line
-const VERSION = require(`${ROOT_DIR}/package.json`); // eslint-disable-line
-
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
+
+const capacitorConfig = require(`${ROOT_DIR}/capacitor.config.json`); // eslint-disable-line
+
+checkEnv({
+  warn: ["APP_MANUAL_TESTING"],
+});
 
 const isDevEnv =
   process.env.NODE_ENV === "development" || process.env.APP_MANUAL_TESTING;
@@ -33,17 +37,7 @@ const config = {
       path.resolve(ROOT_DIR, "./node_modules/"),
       path.resolve(ROOT_DIR, "./src/"),
     ],
-    alias: {
-      "@apps": "common/appsBitCollection",
-      config: "common/config/config",
-      helpers: "common/helpers",
-      savedSamples: "common/models/savedSamples",
-      sample: "common/models/sample",
-      occurrence: "common/models/occurrence",
-      appModel: "common/models/appModel",
-      userModel: "common/models/userModel",
-      Components: "common/Components",
-    },
+    alias: {},
     extensions: [".js", ".jsx", ".json"],
   },
   module: {
@@ -127,37 +121,11 @@ const config = {
   },
 
   plugins: [
-    // Extract environmental variables and replace references with values in the code
     new webpack.DefinePlugin({
       __ENV__: JSON.stringify(process.env.NODE_ENV || "development"),
       __DEV__: isDevEnv,
       __PROD__: isProdEnv,
       __TEST__: isTestEnv,
-
-      "process.env": {
-        // package.json variables
-        APP_BUILD: JSON.stringify(
-          process.env.BUILD_NUMBER || process.env.BITRISE_BUILD_NUMBER || "1"
-        ),
-        APP_VERSION: JSON.stringify(VERSION), // no need to be an env value
-
-        // mandatory env. variables
-        APP_BACKEND_CLIENT_ID: JSON.stringify(
-          process.env.APP_BACKEND_CLIENT_ID || ""
-        ),
-        APP_MAPBOX_MAP_KEY: JSON.stringify(
-          process.env.APP_MAPBOX_MAP_KEY || ""
-        ),
-        // compulsory env. variables
-        APP_SENTRY_KEY: JSON.stringify(process.env.APP_SENTRY_KEY || ""),
-        APP_BACKEND_INDICIA_URL: JSON.stringify(
-          process.env.APP_BACKEND_INDICIA_URL || ""
-        ),
-        APP_BACKEND_URL: JSON.stringify(process.env.APP_BACKEND_URL || ""),
-
-        // https://github.com/webpack-contrib/karma-webpack/issues/316
-        SAUCE_LABS: JSON.stringify(process.env.SAUCE_LABS),
-      },
     }),
     new MiniCssExtractPlugin({
       filename: "style.css",
