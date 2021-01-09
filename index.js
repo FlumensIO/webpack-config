@@ -11,8 +11,6 @@ const checkEnv = require("@flumens/has-env");
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
 
-const capacitorConfig = require(`${ROOT_DIR}/capacitor.config.json`); // eslint-disable-line
-
 checkEnv({
   warn: ["APP_MANUAL_TESTING"],
 });
@@ -179,6 +177,8 @@ if (process.env.DEBUG_IOS) {
 }
 
 if (process.env.DEBUG_ANDROID) {
+  const capacitorConfig = require(`${ROOT_DIR}/capacitor.config.json`); // eslint-disable-line
+
   config.plugins.push(
     new WebpackShellPluginNext({
       dev: false, // run more than once
