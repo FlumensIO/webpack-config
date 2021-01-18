@@ -1,7 +1,6 @@
 const OS = require("os"); // eslint-disable-line
 const path = require("path"); // eslint-disable-line
 const webpack = require("webpack");
-const autoprefixer = require("autoprefixer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -59,10 +58,10 @@ const config = {
         test: /\.s?[c|a]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "style-loader",
           {
             loader: "string-replace-loader",
             options: {
+              // photoswipe fix
               search: "./default-skin.svg",
               replace: "/images/default-skin.svg",
               flags: "g",
@@ -72,9 +71,8 @@ const config = {
           {
             loader: "postcss-loader",
             options: {
-              sourceMap: true,
-              plugins() {
-                return [autoprefixer("last 2 version")];
+              postcssOptions: {
+                plugins: [["autoprefixer"]],
               },
             },
           },
@@ -128,7 +126,7 @@ const config = {
       __TEST__: isTestEnv,
     }),
     new MiniCssExtractPlugin({
-      filename: "style.css",
+      filename: "[name].css",
     }),
     new webpack.EnvironmentPlugin({
       APP_MANUAL_TESTING: "",
