@@ -6,14 +6,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
-const checkEnv = require("@flumens/has-env");
 
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
-
-checkEnv({
-  warn: ["APP_MANUAL_TESTING"],
-});
 
 const isDevEnv =
   process.env.NODE_ENV === "development" || process.env.APP_MANUAL_TESTING;
@@ -48,17 +43,23 @@ const config = {
       },
       {
         test: /(\.png)|(\.svg)|(\.jpg)/,
-        loader: "file-loader?name=images/[name].[ext]",
+        loader: "file-loader",
+        options: {
+          name: "images/[name].[ext]",
+        },
       },
       {
         test: /(\.woff)|(\.ttf)/,
-        loader: "file-loader?name=font/[name].[ext]",
+        loader: "file-loader",
+        options: {
+          name: "font/[name].[ext]",
+        },
       },
       {
         test: /\.s?[c|a]ss$/,
         use: [
-          "style-loader",
           MiniCssExtractPlugin.loader,
+          "style-loader",
           {
             loader: "string-replace-loader",
             options: {
@@ -129,14 +130,15 @@ const config = {
     new MiniCssExtractPlugin({
       filename: "style.css",
     }),
+    new webpack.EnvironmentPlugin({
+      APP_MANUAL_TESTING: "",
+    }),
     new HtmlWebpackPlugin({
       template: "src/index.html",
       sourceMap: true,
       // https://github.com/marcelklehr/toposort/issues/20
       chunksSortMode: "none",
     }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new UnusedWebpackPlugin({
       directories: [path.join(ROOT_DIR, "src")],
       exclude: ["*.spec.js", "dummy*", "cache*", "make*", "helper*"],
