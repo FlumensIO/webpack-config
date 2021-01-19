@@ -10,9 +10,18 @@ const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
 
 const isDevEnv =
-  process.env.NODE_ENV === "development" || process.env.APP_MANUAL_TESTING;
+  process.env.NODE_ENV === "development" ||
+  process.env.APP_MANUAL_TESTING ||
+  false;
 const isProdEnv = process.env.NODE_ENV === "production";
 const isTestEnv = process.env.NODE_ENV === "test";
+
+const appVersion = process.env.npm_package_version;
+const appBuild = !isProdEnv
+  ? "dev"
+  : process.env.BITRISE_BUILD_NUMBER || undefined; // undefined makes it mandatory for production
+
+console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 
 const config = {
   mode: isProdEnv ? "production" : "development",
@@ -120,20 +129,16 @@ const config = {
 
   plugins: [
     new webpack.EnvironmentPlugin({
-      APP_BUILD: isDevEnv ? "dev" : undefined, // make mandatory for production
-    }),
-    new webpack.DefinePlugin({
-      APP_VERSION: JSON.stringify(process.env.npm_package_version),
-      __ENV__: JSON.stringify(process.env.NODE_ENV || "development"),
+      APP_BUILD: appBuild,
+      APP_VERSION: appVersion,
+      __ENV__: process.env.NODE_ENV || "development",
       __DEV__: isDevEnv,
       __PROD__: isProdEnv,
       __TEST__: isTestEnv,
+      APP_MANUAL_TESTING: "",
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
-    }),
-    new webpack.EnvironmentPlugin({
-      APP_MANUAL_TESTING: "",
     }),
     new HtmlWebpackPlugin({
       template: "src/index.html",
