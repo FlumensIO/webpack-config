@@ -119,7 +119,11 @@ const config = {
   },
 
   plugins: [
+    new webpack.EnvironmentPlugin({
+      APP_BUILD: isDevEnv ? "dev" : undefined, // make mandatory for production
+    }),
     new webpack.DefinePlugin({
+      APP_VERSION: JSON.stringify(process.env.npm_package_version),
       __ENV__: JSON.stringify(process.env.NODE_ENV || "development"),
       __DEV__: isDevEnv,
       __PROD__: isProdEnv,
@@ -145,10 +149,11 @@ const config = {
   ],
   stats: {
     children: false,
-    colors: true
+    colors: true,
   },
   cache: true,
   devServer: {
+    stats: { colors: true },
     historyApiFallback: true,
   },
 };
