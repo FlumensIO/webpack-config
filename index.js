@@ -62,15 +62,6 @@ const config = {
         test: /\.s?[c|a]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: "string-replace-loader",
-            options: {
-              // photoswipe fix
-              search: "./default-skin.svg",
-              replace: "/images/default-skin.svg",
-              flags: "g",
-            },
-          },
           "css-loader?-url",
           {
             loader: "postcss-loader",
@@ -124,6 +115,7 @@ const config = {
 
   plugins: [
     new webpack.EnvironmentPlugin({
+      // NODE_ENV: 'production' | 'development' | 'test', # this is set up automatically
       APP_BUILD: appBuild,
       APP_VERSION: appVersion,
       APP_MANUAL_TESTING: "", // optional
