@@ -145,6 +145,7 @@ const config = {
   ],
   stats: {
     children: false,
+    colors: true
   },
   cache: true,
   devServer: {
