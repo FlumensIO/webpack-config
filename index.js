@@ -9,17 +9,12 @@ const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
 
-const isDevEnv =
-  process.env.NODE_ENV === "development" ||
-  process.env.APP_MANUAL_TESTING ||
-  false;
 const isProdEnv = process.env.NODE_ENV === "production";
-const isTestEnv = process.env.NODE_ENV === "test";
 
 const appVersion = process.env.npm_package_version;
 const appBuild = !isProdEnv
   ? "dev"
-  : process.env.BITRISE_BUILD_NUMBER || undefined; // undefined makes it mandatory for production
+  : process.env.APP_BUILD || process.env.BITRISE_BUILD_NUMBER || undefined; // undefined makes it mandatory for production
 
 console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 
@@ -131,11 +126,7 @@ const config = {
     new webpack.EnvironmentPlugin({
       APP_BUILD: appBuild,
       APP_VERSION: appVersion,
-      __ENV__: process.env.NODE_ENV || "development",
-      __DEV__: isDevEnv,
-      __PROD__: isProdEnv,
-      __TEST__: isTestEnv,
-      APP_MANUAL_TESTING: "",
+      APP_MANUAL_TESTING: "", // optional
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
