@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "1.3.4",
     "node-sass": "5.0.0",
+    "postcss": "^8.2.4",
     "postcss-loader": "4.1.0",
     "sass-loader": "10.1.1",
     "string-replace-loader": "3.0.1",
