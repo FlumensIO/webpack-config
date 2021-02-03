@@ -26,7 +26,7 @@ const config = {
 
   output: {
     path: DIST_DIR,
-    filename: "[name]-[chunkhash].js",
+    filename: "js/[name]-[chunkhash].js",
     publicPath: "/",
   },
   resolve: {
@@ -48,14 +48,14 @@ const config = {
         test: /(\.png)|(\.svg)|(\.jpg)/,
         loader: "file-loader",
         options: {
-          name: "images/[name].[ext]",
+          name: "images/[contenthash].[ext]",
         },
       },
       {
         test: /(\.woff)|(\.ttf)/,
         loader: "file-loader",
         options: {
-          name: "font/[name].[ext]",
+          name: "fonts/[name].[ext]",
         },
       },
       {
@@ -121,7 +121,7 @@ const config = {
       APP_MANUAL_TESTING: "", // optional
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: "css/[name].css",
     }),
     new HtmlWebpackPlugin({
       template: "src/index.html",
