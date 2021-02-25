@@ -1,3 +1,7 @@
+## 0.5.0
+
+Added `originalName` option to image loader.
+
 ## 0.4.0
 
 Enabled css `url()` loader.

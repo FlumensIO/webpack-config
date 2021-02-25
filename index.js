@@ -48,7 +48,13 @@ const config = {
         test: /(\.png)|(\.svg)|(\.jpg)/,
         loader: "file-loader",
         options: {
-          name: "images/[contenthash].[ext]",
+          name(_, resourceQuery = '') {
+            if (resourceQuery.includes('originalName')) {
+              return 'images/[name].[ext]';
+            }
+
+            return "images/[contenthash].[ext]";
+          },
         },
       },
       {
