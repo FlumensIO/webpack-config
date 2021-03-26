@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
+const RemovePlugin = require("remove-files-webpack-plugin");
 
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
@@ -21,7 +23,7 @@ console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 const config = {
   mode: isProdEnv ? "production" : "development",
   entry: ["index.jsx"],
-  devtool: !isProdEnv && "source-map",
+  devtool: "source-map",
   target: "web",
 
   output: {
@@ -48,9 +50,9 @@ const config = {
         test: /(\.png)|(\.svg)|(\.jpg)/,
         loader: "file-loader",
         options: {
-          name(_, resourceQuery = '') {
-            if (resourceQuery.includes('originalName')) {
-              return 'images/[name].[ext]';
+          name(_, resourceQuery = "") {
+            if (resourceQuery.includes("originalName")) {
+              return "images/[name].[ext]";
             }
 
             return "images/[contenthash].[ext]";
@@ -151,6 +153,42 @@ const config = {
     historyApiFallback: true,
   },
 };
+
+if (isProdEnv) {
+  if (
+    !process.env.SENTRY_AUTH_TOKEN ||
+    !process.env.SENTRY_ORG_ID ||
+    !process.env.SENTRY_PROJECT_ID
+  ) {
+    throw new Error(
+      "Missing one of env vars SENTRY_AUTH_TOKEN || SENTRY_ORG_ID || SENTRY_PROJECT_ID"
+    );
+  }
+
+  config.plugins.push(
+    new SentryWebpackPlugin({
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: process.env.SENTRY_ORG_ID,
+      project: process.env.SENTRY_PROJECT_ID,
+      release: appVersion,
+      include: DIST_DIR,
+      ignore: ["node_modules", "webpack.config.js"],
+    }),
+    new RemovePlugin({
+      after: {
+        test: [
+          {
+            folder: DIST_DIR,
+            method: (absoluteItemPath) => {
+              return new RegExp(/\.map$/, "m").test(absoluteItemPath);
+            },
+            recursive: true,
+          },
+        ],
+      },
+    })
+  );
+}
 
 if (process.env.APP_MANUAL_TESTING) {
   config.entry.push("./test/manual-test-utils.js");

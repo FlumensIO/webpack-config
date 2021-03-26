@@ -1,3 +1,7 @@
+## 1.0.0
+
+Added sentry map file upload.
+
 ## 0.5.0
 
 Added `originalName` option to image loader.
