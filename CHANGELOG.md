@@ -1,3 +1,7 @@
+## 2.0.0
+
+Update dependencies. Webpack `--watch` flag must be removed.
+
 ## 1.0.0
 
 Added sentry map file upload.
