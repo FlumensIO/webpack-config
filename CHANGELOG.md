@@ -1,3 +1,7 @@
+## 2.1.0
+
+Added `*-test.js` to unused files ignore.
+
 ## 2.0.0
 
 Update dependencies. Webpack `--watch` flag must be removed.

@@ -139,7 +139,14 @@ const config = {
     }),
     new UnusedWebpackPlugin({
       directories: [path.join(ROOT_DIR, "src")],
-      exclude: ["*.spec.js", "dummy*", "cache*", "make*", "helper*"],
+      exclude: [
+        "*.spec.js",
+        "*-test.js",
+        "dummy*",
+        "cache*",
+        "make*",
+        "helper*",
+      ],
       root: ROOT_DIR,
     }),
   ],
