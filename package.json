@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,7 @@
     "mini-css-extract-plugin": "1.4.0",
     "node-sass": "5.0.0",
     "po-loader": "^0.5.0",
+    "po2json": "1.0.0-beta-3",
     "postcss-loader": "5.2.0",
     "remove-files-webpack-plugin": "^1.4.4",
     "sass-loader": "11.0.1",
