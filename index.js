@@ -146,6 +146,8 @@ const config = {
         "cache*",
         "make*",
         "helper*",
+        "*.md",
+        "*.txt",
       ],
       root: ROOT_DIR,
     }),
