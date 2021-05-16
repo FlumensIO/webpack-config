@@ -1,12 +1,15 @@
 const OS = require("os"); // eslint-disable-line
 const path = require("path"); // eslint-disable-line
 const webpack = require("webpack");
+const glob = require("glob");
+const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const RemovePlugin = require("remove-files-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
@@ -18,11 +21,13 @@ const appBuild = !isProdEnv
   ? "dev"
   : process.env.APP_BUILD || process.env.BITRISE_BUILD_NUMBER || undefined; // undefined makes it mandatory for production
 
+const isTypeScript = fs.existsSync(path.join(ROOT_DIR, "tsconfig.json"));
+
 console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 
 const config = {
   mode: isProdEnv ? "production" : "development",
-  entry: ["index.jsx"],
+  entry: glob.sync("./src/index.{ts,tsx,js,jsx}"),
   devtool: "source-map",
   target: "web",
 
@@ -37,12 +42,12 @@ const config = {
       path.resolve(ROOT_DIR, "./src/"),
     ],
     alias: {},
-    extensions: [".js", ".jsx", ".json"],
+    extensions: [".js", ".jsx", ".json", ".tsx", ".ts"],
   },
   module: {
     rules: [
       {
-        test: /^((?!data\.).)*\.jsx?$/,
+        test: /^((?!data\.).)*\.(ts|js)x?$/,
         exclude: /(node_modules|vendor(?!\.js))/,
         loader: "babel-loader",
       },
@@ -151,6 +156,7 @@ const config = {
       ],
       root: ROOT_DIR,
     }),
+    ...(isTypeScript ? [new ForkTsCheckerWebpackPlugin({ async: false })] : []),
   ],
   stats: {
     children: false,

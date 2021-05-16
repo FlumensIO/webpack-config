@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "babel-loader": "8.2.2",
     "css-loader": "5.2.0",
     "file-loader": "6.2.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.9",
     "html-webpack-plugin": "5.3.1",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "1.4.0",
@@ -27,7 +28,6 @@
     "url-loader": "4.1.1",
     "webpack-shell-plugin-next": "2.2.2"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "postcss": ">=8.2",
     "webpack": ">=5.30.0"
