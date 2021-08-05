@@ -15,6 +15,7 @@ const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
 
 const isProdEnv = process.env.NODE_ENV === "production";
+const isTestEnv = process.env.NODE_ENV === "test";
 
 const appVersion = process.env.npm_package_version;
 const appBuild = !isProdEnv
@@ -28,7 +29,7 @@ console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 const config = {
   mode: isProdEnv ? "production" : "development",
   entry: glob.sync("./src/index.{ts,tsx,js,jsx}"),
-  devtool: "source-map",
+  devtool: isTestEnv ? false : "source-map",
   target: "web",
 
   output: {
@@ -142,6 +143,20 @@ const config = {
       // https://github.com/marcelklehr/toposort/issues/20
       chunksSortMode: "none",
     }),
+  ],
+  stats: {
+    children: false,
+    colors: true,
+  },
+  cache: true,
+  devServer: {
+    stats: { colors: true },
+    historyApiFallback: true,
+  },
+};
+
+if (!isTestEnv) {
+  config.plugins.push(
     new UnusedWebpackPlugin({
       directories: [path.join(ROOT_DIR, "src")],
       exclude: [
@@ -155,19 +170,13 @@ const config = {
         "*.txt",
       ],
       root: ROOT_DIR,
-    }),
-    ...(isTypeScript ? [new ForkTsCheckerWebpackPlugin({ async: false })] : []),
-  ],
-  stats: {
-    children: false,
-    colors: true,
-  },
-  cache: true,
-  devServer: {
-    stats: { colors: true },
-    historyApiFallback: true,
-  },
-};
+    })
+  );
+}
+
+if (isTypeScript) {
+  config.plugins.push(new ForkTsCheckerWebpackPlugin({ async: false }));
+}
 
 if (isProdEnv) {
   if (
