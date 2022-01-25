@@ -1,3 +1,7 @@
+## 3.0.0
+
+Update dependencies.
+
 ## 2.2.2
 
 Optimized build for test environment.
