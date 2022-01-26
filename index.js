@@ -76,7 +76,10 @@ const config = {
         test: /\.s?[c|a]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: { esModule: false },
+          },
           {
             loader: "postcss-loader",
             options: {
