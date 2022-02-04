@@ -1,3 +1,7 @@
+## 4.0.0
+
+Fix react-leaflet nullish use for old browsers.
+
 ## 3.0.0
 
 Update dependencies.

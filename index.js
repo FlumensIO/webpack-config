@@ -92,6 +92,21 @@ const config = {
         ],
       },
       {
+        // fixes react-leaflet nullish operator - we should remove this in the future
+        // https://github.com/PaulLeCam/react-leaflet/pull/926
+        test: /@?react-leaflet/,
+        use: [
+          {
+            loader: "string-replace-loader",
+            options: {
+              search: /\s\?\?\s/i,
+              replace: " && ",
+              flags: "g",
+            },
+          },
+        ],
+      },
+      {
         test: /\.pot?$/,
         use: [
           "json-loader",
