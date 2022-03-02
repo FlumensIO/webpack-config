@@ -238,17 +238,11 @@ if (process.env.APP_MANUAL_TESTING) {
 
 if (process.env.DEBUG_IOS) {
   // for some reason script didn't accept ~ or $HOME
-  const homedir = OS.homedir(); // eslint-disable-line
-  const buildID = process.env.IOS_BUILD_ID;
   config.plugins.push(
     new WebpackShellPluginNext({
       dev: false, // run more than once
       onBuildEnd: {
-        scripts: [
-          "npx cap copy ios",
-          "xcodebuild -workspace ./ios/App/App.xcworkspace -scheme App -sdk iphonesimulator",
-          `npx ios-sim launch -d iPhone-6s-Plus ${homedir}/Library/Developer/Xcode/DerivedData/${buildID}/Build/Products/Debug-iphonesimulator/App.app -x`,
-        ],
+        scripts: [`npx cap run ios --target ${process.env.DEBUG_IOS}`],
         blocking: true,
         parallel: false,
       },
@@ -257,18 +251,11 @@ if (process.env.DEBUG_IOS) {
 }
 
 if (process.env.DEBUG_ANDROID) {
-  const capacitorConfig = require(`${ROOT_DIR}/capacitor.config.json`); // eslint-disable-line
-
   config.plugins.push(
     new WebpackShellPluginNext({
       dev: false, // run more than once
       onBuildEnd: {
-        scripts: [
-          "npx cap copy android",
-          "./android/gradlew assembleDebug -p android",
-          "adb install -r android/app/build/outputs/apk/debug/app-debug.apk",
-          `adb shell am start -n ${capacitorConfig.appId}/.MainActivity`,
-        ],
+        scripts: [`npx cap run android --target ${process.env.DEBUG_ANDROID}`],
         blocking: true,
         parallel: false,
       },
