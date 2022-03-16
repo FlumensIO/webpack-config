@@ -100,7 +100,7 @@ const config = {
             loader: "string-replace-loader",
             options: {
               search: /\s\?\?\s/i,
-              replace: " && ",
+              replace: " || ",
               flags: "g",
             },
           },
