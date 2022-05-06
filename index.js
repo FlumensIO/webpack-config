@@ -168,7 +168,6 @@ const config = {
   },
   cache: true,
   devServer: {
-    stats: { colors: true },
     historyApiFallback: true,
   },
 };

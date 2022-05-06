@@ -1,3 +1,7 @@
+## 4.1.2
+
+Fixed new dev server config.
+
 ## 4.0.0
 
 Fix react-leaflet nullish use for old browsers.
