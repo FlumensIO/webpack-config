@@ -73,6 +73,13 @@ const config = {
         },
       },
       {
+        test: /(\.mp4)|(\.mov)/,
+        loader: "file-loader",
+        options: {
+          name: "videos/[name].[ext]",
+        },
+      },
+      {
         test: /\.s?[c|a]ss$/,
         use: [
           MiniCssExtractPlugin.loader,

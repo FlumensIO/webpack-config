@@ -1,3 +1,7 @@
+## 4.2.0
+
+Added MP4 and MOV file support.
+
 ## 4.1.2
 
 Fixed new dev server config.
