@@ -202,7 +202,7 @@ if (isTypeScript) {
   config.plugins.push(new ForkTsCheckerWebpackPlugin({ async: false }));
 }
 
-if (isProdEnv) {
+if (isProdEnv && process.env.CI) {
   if (
     !process.env.SENTRY_AUTH_TOKEN ||
     !process.env.SENTRY_ORG_ID ||
