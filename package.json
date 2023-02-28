@@ -1,9 +1,10 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
+    "postpublish": "TAG_NAME=v\"$npm_package_version\" && git tag $TAG_NAME &&  git push origin \"$TAG_NAME\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

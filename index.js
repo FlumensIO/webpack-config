@@ -176,6 +176,7 @@ const config = {
   cache: true,
   devServer: {
     historyApiFallback: true,
+    allowedHosts: "all"
   },
 };
 

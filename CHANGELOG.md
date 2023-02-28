@@ -1,3 +1,7 @@
+## 4.2.2
+
+Fixed development on remote machines.
+
 ## 4.2.0
 
 Added MP4 and MOV file support.
