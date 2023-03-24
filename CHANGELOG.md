@@ -1,3 +1,8 @@
+## 5.0.0
+
+Switched from node-sass to dart-sass. Some styles _might_ be different - check.
+Updated dependencies.
+
 ## 4.2.2
 
 Fixed development on remote machines.
