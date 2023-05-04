@@ -26,6 +26,17 @@ const isTypeScript = fs.existsSync(path.join(ROOT_DIR, "tsconfig.json"));
 
 console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 
+const hasPostCSSConfig = fs.existsSync(
+  path.join(ROOT_DIR, "postcss.config.js")
+);
+const postCSSOptions = !hasPostCSSConfig
+  ? {
+      postcssOptions: {
+        plugins: [["autoprefixer"]],
+      },
+    }
+  : undefined;
+
 const config = {
   mode: isProdEnv ? "production" : "development",
   entry: glob.sync("./src/index.{ts,tsx,js,jsx}"),
@@ -83,18 +94,8 @@ const config = {
         test: /\.s?[c|a]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: { esModule: false },
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: [["autoprefixer"]],
-              },
-            },
-          },
+          { loader: "css-loader", options: { esModule: false } },
+          { loader: "postcss-loader", options: postCSSOptions },
           `sass-loader`,
         ],
       },
@@ -176,7 +177,7 @@ const config = {
   cache: true,
   devServer: {
     historyApiFallback: true,
-    allowedHosts: "all"
+    allowedHosts: "all",
   },
 };
 

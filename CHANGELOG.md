@@ -1,3 +1,7 @@
+## 5.1.0
+
+Support local `postcss.config.js` config.
+
 ## 5.0.0
 
 Switched from node-sass to dart-sass. Some styles _might_ be different - check.
