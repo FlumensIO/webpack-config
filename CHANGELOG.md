@@ -1,3 +1,7 @@
+## 5.2.0
+
+Automatically detect tailwind config.
+
 ## 5.1.0
 
 Support local `postcss.config.js` config.

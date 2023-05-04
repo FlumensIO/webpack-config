@@ -29,10 +29,15 @@ console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 const hasPostCSSConfig = fs.existsSync(
   path.join(ROOT_DIR, "postcss.config.js")
 );
+const hasTailwindConfig = fs.existsSync(
+  path.join(ROOT_DIR, "tailwind.config.js")
+);
 const postCSSOptions = !hasPostCSSConfig
   ? {
       postcssOptions: {
-        plugins: [["autoprefixer"]],
+        plugins: hasTailwindConfig
+          ? ["autoprefixer", "tailwindcss"]
+          : ["autoprefixer"],
       },
     }
   : undefined;
