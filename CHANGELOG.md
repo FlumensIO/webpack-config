@@ -1,3 +1,7 @@
+## 5.3.0
+
+Added .ico file support.
+
 ## 5.2.0
 
 Automatically detect tailwind config.

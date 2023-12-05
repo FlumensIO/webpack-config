@@ -69,7 +69,7 @@ const config = {
         loader: "babel-loader",
       },
       {
-        test: /(\.png)|(\.svg)|(\.jpg)/,
+        test: /(\.png)|(\.ico)|(\.svg)|(\.jpg)/,
         loader: "file-loader",
         options: {
           name(_, resourceQuery = "") {
