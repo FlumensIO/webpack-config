@@ -1,3 +1,7 @@
+## 5.3.1
+
+Fixed entry path resolving.
+
 ## 5.3.0
 
 Added .ico file support.

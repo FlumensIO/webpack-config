@@ -60,6 +60,7 @@ const config = {
     ],
     alias: {},
     extensions: [".js", ".jsx", ".json", ".tsx", ".ts"],
+    preferRelative: true,
   },
   module: {
     rules: [
