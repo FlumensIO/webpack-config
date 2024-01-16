@@ -195,6 +195,7 @@ if (!isTestEnv) {
         "*.spec.js",
         "*-test.js",
         "dummy*",
+        "data*",
         "cache*",
         "make*",
         "helper*",
