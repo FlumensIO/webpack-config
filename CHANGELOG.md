@@ -1,3 +1,7 @@
+## 5.3.3
+
+Fixed sentry source map upload.
+
 ## 5.3.2
 
 Fixed unused data file warnings.

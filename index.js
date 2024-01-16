@@ -1,4 +1,3 @@
-const OS = require("os"); // eslint-disable-line
 const path = require("path"); // eslint-disable-line
 const webpack = require("webpack");
 const glob = require("glob");
@@ -226,11 +225,20 @@ if (isProdEnv && process.env.CI) {
       authToken: process.env.SENTRY_AUTH_TOKEN,
       org: process.env.SENTRY_ORG_ID,
       project: process.env.SENTRY_PROJECT_ID,
-      release: { name: appVersion },
+      release: {
+        name: appVersion,
+        dist: appBuild,
+        cleanArtifacts: true,
+        finalize: true,
+      },
+      telemetry: false,
       sourcemaps: {
-        assets: DIST_DIR,
+        assets: [`${DIST_DIR}/js/*`],
         ignore: ["node_modules", "webpack.config.js"],
-        deleteFilesAfterUpload: [`${DIST_DIR}/**/*.map`],
+        filesToDeleteAfterUpload: [
+          `${DIST_DIR}/**/*.map`,
+          `${DIST_DIR}/js/*.txt`,
+        ],
       },
     })
   );
