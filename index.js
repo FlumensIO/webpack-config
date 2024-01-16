@@ -7,8 +7,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
-const SentryWebpackPlugin = require("@sentry/webpack-plugin");
-const RemovePlugin = require("remove-files-webpack-plugin");
+const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const ROOT_DIR = process.env.INIT_CWD;
@@ -223,25 +222,15 @@ if (isProdEnv && process.env.CI) {
   }
 
   config.plugins.push(
-    new SentryWebpackPlugin({
+    sentryWebpackPlugin({
       authToken: process.env.SENTRY_AUTH_TOKEN,
       org: process.env.SENTRY_ORG_ID,
       project: process.env.SENTRY_PROJECT_ID,
-      release: appVersion,
-      include: DIST_DIR,
-      ignore: ["node_modules", "webpack.config.js"],
-    }),
-    new RemovePlugin({
-      after: {
-        test: [
-          {
-            folder: DIST_DIR,
-            method: (absoluteItemPath) => {
-              return new RegExp(/\.map$/, "m").test(absoluteItemPath);
-            },
-            recursive: true,
-          },
-        ],
+      release: { name: appVersion },
+      sourcemaps: {
+        assets: DIST_DIR,
+        ignore: ["node_modules", "webpack.config.js"],
+        deleteFilesAfterUpload: [`${DIST_DIR}/**/*.map`],
       },
     })
   );

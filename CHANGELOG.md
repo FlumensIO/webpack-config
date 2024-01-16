@@ -1,5 +1,10 @@
 ## 5.3.1
 
+Fixed unused data file warnings.
+Updated sentry plugin.
+
+## 5.3.1
+
 Fixed entry path resolving.
 
 ## 5.3.0
