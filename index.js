@@ -175,7 +175,7 @@ const config = {
       // https://github.com/marcelklehr/toposort/issues/20
       chunksSortMode: "none",
       templateParameters: {
-        title: package.title,
+        APP_TITLE: process.env.APP_TITLE || package.title,
       },
     }),
   ],
