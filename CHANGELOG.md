@@ -1,3 +1,7 @@
+## 5.4.0
+
+Added `package.title` to the `index.html`.
+
 ## 5.3.3
 
 Fixed sentry source map upload.

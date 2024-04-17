@@ -9,6 +9,8 @@ const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
+const package = require(process.env.npm_package_json);
+
 const ROOT_DIR = process.env.INIT_CWD;
 const DIST_DIR = path.resolve(ROOT_DIR, "build");
 
@@ -172,6 +174,9 @@ const config = {
       sourceMap: true,
       // https://github.com/marcelklehr/toposort/issues/20
       chunksSortMode: "none",
+      templateParameters: {
+        title: package.title,
+      },
     }),
   ],
   stats: {
