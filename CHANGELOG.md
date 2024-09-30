@@ -1,3 +1,7 @@
+## 5.5.0
+
+Added `APP_NAME` and `APP_TITLE` to env vars.
+
 ## 5.4.0
 
 Added `package.title` to the `index.html`.

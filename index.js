@@ -162,6 +162,8 @@ const config = {
   plugins: [
     new webpack.EnvironmentPlugin({
       // NODE_ENV: 'production' | 'development' | 'test', # this is set up automatically
+      APP_NAME: process.env.APP_NAME || package.name,
+      APP_TITLE: process.env.APP_TITLE || package.title,
       APP_BUILD: appBuild,
       APP_VERSION: appVersion,
       APP_MANUAL_TESTING: "", // optional
