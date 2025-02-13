@@ -1,3 +1,7 @@
+## 5.5.1
+
+Fixed sass-loader warnings.
+
 ## 5.5.0
 
 Added `APP_NAME` and `APP_TITLE` to env vars.

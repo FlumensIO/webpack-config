@@ -102,7 +102,7 @@ const config = {
           MiniCssExtractPlugin.loader,
           { loader: "css-loader", options: { esModule: false } },
           { loader: "postcss-loader", options: postCSSOptions },
-          `sass-loader`,
+          { loader: "sass-loader", options: { api: "modern" } },
         ],
       },
       {
