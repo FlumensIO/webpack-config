@@ -213,7 +213,12 @@ if (!isTestEnv) {
 }
 
 if (isTypeScript) {
-  config.plugins.push(new ForkTsCheckerWebpackPlugin({ async: false }));
+  config.plugins.push(
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      typescript: { memoryLimit: 2048 * 1.5 },
+    })
+  );
 }
 
 if (isProdEnv && process.env.CI) {

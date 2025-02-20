@@ -1,3 +1,7 @@
+## 5.5.3
+
+Increased mem limit.
+
 ## 5.5.1
 
 Fixed sass-loader warnings.
