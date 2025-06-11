@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "5.5.3",
+  "version": "5.6.0",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@flumens/has-env": "1.0.0",
-    "@sentry/webpack-plugin": "^2.10.2",
+    "@sentry/webpack-plugin": "^3.5.0",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",

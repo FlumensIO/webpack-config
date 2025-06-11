@@ -1,3 +1,7 @@
+## 5.6.0
+
+Update sentry cli dependency.
+
 ## 5.5.3
 
 Increased mem limit.
