@@ -1,3 +1,7 @@
+## 6.0.0
+
+Enabled tailwind v4.
+
 ## 5.6.0
 
 Update sentry cli dependency.

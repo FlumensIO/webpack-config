@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "5.6.0",
+  "version": "6.0.0",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "file-loader": "6.2.0",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "@tailwindcss/postcss": "^4.1.11",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^2.7.5",
     "sass": "^1.60.0",
