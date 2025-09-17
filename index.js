@@ -69,7 +69,7 @@ const config = {
         loader: "babel-loader",
       },
       {
-        test: /(\.png)|(\.ico)|(\.svg)|(\.jpg)/,
+        test: /(\.png)|(\.ico)|(\.jpg)/,
         loader: "file-loader",
         options: {
           name(_, resourceQuery = "") {
@@ -80,6 +80,17 @@ const config = {
             return "images/[contenthash].[ext]";
           },
         },
+      },
+      {
+        test: /\.svg$/i,
+        type: "asset",
+        resourceQuery: { not: [/react/] }, // exclude react component if *.svg?react
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        resourceQuery: /react/, // *.svg?react
+        use: ["@svgr/webpack"],
       },
       {
         test: /(\.woff)|(\.ttf)/,

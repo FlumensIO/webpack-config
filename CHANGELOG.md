@@ -1,3 +1,7 @@
+## 6.0.1
+
+Added SVG React components.
+
 ## 6.0.0
 
 Enabled tailwind v4.
