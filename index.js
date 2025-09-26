@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const tailwindcss = require("@tailwindcss/postcss");
 
 const package = require(process.env.npm_package_json);
 
@@ -34,9 +35,12 @@ const hasTailwindConfig =
 const postCSSOptions = !hasPostCSSConfig
   ? {
       postcssOptions: {
-        plugins: hasTailwindConfig
-          ? ["autoprefixer", "@tailwindcss/postcss"]
-          : ["autoprefixer"],
+        plugins: [
+          "autoprefixer",
+          tailwindcss({
+            optimize: false, // for some reason Lightning CSS breaks variables
+          }),
+        ],
       },
     }
   : undefined;

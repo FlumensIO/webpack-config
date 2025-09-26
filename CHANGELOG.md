@@ -1,3 +1,7 @@
+## 6.0.2
+
+Fix Tailwind variables.
+
 ## 6.0.1
 
 Added SVG React components.
