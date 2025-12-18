@@ -87,8 +87,16 @@ const config = {
       },
       {
         test: /\.svg$/i,
+        resourceQuery: /originalName/,
+        type: "asset/resource",
+        generator: {
+          filename: "images/[name][ext]", // no hash
+        },
+      },
+      {
+        test: /\.svg$/i,
         type: "asset",
-        resourceQuery: { not: [/react/] }, // exclude react component if *.svg?react
+        resourceQuery: { not: [/react/, /originalName/] }, // exclude react component if *.svg?react
       },
       {
         test: /\.svg$/i,

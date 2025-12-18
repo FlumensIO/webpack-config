@@ -1,6 +1,6 @@
 {
   "name": "@flumens/webpack-config",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Webpack config",
   "main": "index.js",
   "scripts": {

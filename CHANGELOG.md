@@ -1,3 +1,7 @@
+## 6.0.3
+
+Fixed svg originalName.
+
 ## 6.0.2
 
 Fix Tailwind variables.
