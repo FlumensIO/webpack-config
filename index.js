@@ -28,7 +28,7 @@ const isTypeScript = fs.existsSync(path.join(ROOT_DIR, "tsconfig.json"));
 console.log(`⚙️  Building version ${appVersion} (${appBuild})\n`);
 
 const hasPostCSSConfig = fs.existsSync(
-  path.join(ROOT_DIR, "postcss.config.js")
+  path.join(ROOT_DIR, "postcss.config.js"),
 );
 const hasTailwindConfig =
   package.devDependencies.tailwindcss || package.dependencies.tailwindcss;
@@ -211,6 +211,26 @@ const config = {
   devServer: {
     historyApiFallback: true,
     allowedHosts: "all",
+
+    // filter out ResizeObserver errors in dev overlay
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        runtimeErrors: (error) => {
+          // ignore ResizeObserver loop errors
+          const resizeObserverErrMsg =
+            "ResizeObserver loop completed with undelivered notifications";
+
+          if (error.message.includes(resizeObserverErrMsg)) {
+            return false;
+          }
+
+          return true;
+        },
+      },
+    },
   },
 };
 
@@ -230,7 +250,7 @@ if (!isTestEnv) {
         "*.txt",
       ],
       root: ROOT_DIR,
-    })
+    }),
   );
 }
 
@@ -239,7 +259,7 @@ if (isTypeScript) {
     new ForkTsCheckerWebpackPlugin({
       async: false,
       typescript: { memoryLimit: 2048 * 1.5 },
-    })
+    }),
   );
 }
 
@@ -250,7 +270,7 @@ if (isProdEnv && process.env.CI) {
     !process.env.SENTRY_PROJECT_ID
   ) {
     throw new Error(
-      "Missing one of env vars SENTRY_AUTH_TOKEN || SENTRY_ORG_ID || SENTRY_PROJECT_ID"
+      "Missing one of env vars SENTRY_AUTH_TOKEN || SENTRY_ORG_ID || SENTRY_PROJECT_ID",
     );
   }
 
@@ -274,7 +294,7 @@ if (isProdEnv && process.env.CI) {
           `${DIST_DIR}/js/*.txt`,
         ],
       },
-    })
+    }),
   );
 }
 
@@ -292,7 +312,7 @@ if (process.env.DEBUG_IOS) {
         blocking: true,
         parallel: false,
       },
-    })
+    }),
   );
 }
 
@@ -305,7 +325,7 @@ if (process.env.DEBUG_ANDROID) {
         blocking: true,
         parallel: false,
       },
-    })
+    }),
   );
 }
 

@@ -1,3 +1,7 @@
+## 6.0.4
+
+Fix tailwind ResizeObserver loop error in dev env.
+
 ## 6.0.3
 
 Fixed svg originalName.
