@@ -1,3 +1,7 @@
+## 6.0.5
+
+Added `SKIP_TYPECHECK` and better error handling.
+
 ## 6.0.4
 
 Fix tailwind ResizeObserver loop error in dev env.

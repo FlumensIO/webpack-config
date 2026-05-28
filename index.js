@@ -254,7 +254,7 @@ if (!isTestEnv) {
   );
 }
 
-if (isTypeScript) {
+if (isTypeScript && !process.env.SKIP_TYPECHECK) {
   config.plugins.push(
     new ForkTsCheckerWebpackPlugin({
       async: false,
@@ -296,6 +296,14 @@ if (isProdEnv && process.env.CI) {
       },
     }),
   );
+}
+
+if (!isProdEnv) {
+  const srcDir = path.join(ROOT_DIR, "src");
+  const escapedSrcDir = srcDir.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  config.watchOptions = {
+    ignored: new RegExp(`^(?!${escapedSrcDir})`),
+  };
 }
 
 if (process.env.APP_MANUAL_TESTING) {
