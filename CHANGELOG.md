@@ -1,3 +1,7 @@
+## 6.2.0
+
+Updated deps.
+
 ## 6.0.5
 
 Added `SKIP_TYPECHECK` and better error handling.
